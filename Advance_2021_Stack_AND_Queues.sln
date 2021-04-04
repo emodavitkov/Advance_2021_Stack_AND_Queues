@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReverseStrings", "Advance_2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackSum", "StackSum\StackSum.csproj", "{EFA7178C-6CD1-4149-B7DD-5295C46F5331}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculator", "SimpleCalculator\SimpleCalculator.csproj", "{606E21B3-2B3C-418E-B3CB-346D95F3759A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EFA7178C-6CD1-4149-B7DD-5295C46F5331}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFA7178C-6CD1-4149-B7DD-5295C46F5331}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFA7178C-6CD1-4149-B7DD-5295C46F5331}.Release|Any CPU.Build.0 = Release|Any CPU
+		{606E21B3-2B3C-418E-B3CB-346D95F3759A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{606E21B3-2B3C-418E-B3CB-346D95F3759A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{606E21B3-2B3C-418E-B3CB-346D95F3759A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{606E21B3-2B3C-418E-B3CB-346D95F3759A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
