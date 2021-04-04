@@ -16,11 +16,18 @@ namespace ReverseStrings
                 strinngReverse.Push(input[i]);
             }
 
-            foreach (var item in strinngReverse)
+            while (strinngReverse.Count > 0)
             {
-                Console.Write(item);
-
+                Console.Write(strinngReverse.Pop());
             }
+            
+            Console.WriteLine();
+            
+            //foreach (var item in strinngReverse)
+            //{
+            //    Console.Write(item);
+
+            //}
         }
     }
 }
