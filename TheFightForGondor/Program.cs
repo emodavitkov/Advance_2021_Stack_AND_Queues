@@ -1,108 +1,108 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Channels;
 
 namespace TheFightForGondor
 {
-    public class Program
+    class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
-            int wavesNumber = int.Parse(Console.ReadLine());
+            int wavesOfOrcs = int.Parse(Console.ReadLine());
 
-            Queue<int> plates = new Queue<int>(Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray());
+            Queue<int> plates = new Queue<int>(Console.ReadLine().Split().Select(int.Parse).ToArray());
+            Stack<int> orcs = new Stack<int>();
 
-            int newPlate = 0;
-            int currentPlate = 0;
-            int currentOrc = 0;
+            int currPlateStrength = 0;
+            int currOrcStrength = 0;
+            bool defeat = false;
 
-            int plate = 0;
-            int orc = 0;
-
-            Stack<int> orcs = null;
-
-
-            for (int i = 1; i <= wavesNumber; i++)
+            for (int i = 1; i <= wavesOfOrcs; i++)
             {
-                
-                orcs = new Stack<int>(Console.ReadLine()
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToArray());
+                orcs = new Stack<int>(Console.ReadLine().Split().Select(int.Parse).ToArray());
 
-               
+                if (i % 3 == 0)
+                {
+                    plates.Enqueue(int.Parse(Console.ReadLine()));
+                }
 
-                 if (i % 3 == 0)
-                 {
-                     newPlate = int.Parse(Console.ReadLine());
-                    plates.Enqueue(newPlate);
-                 }
-                 
-
-                
-                 while (orcs.Count>0 && plates.Count>0)
-                 {
-                     plate = plates.Peek();
-                     orc = orcs.Peek();
-
-                     if (plate>orc)
+                while (plates.Count > 0 && orcs.Count > 0)
+                {
+                    if (currOrcStrength == 0)
                     {
-                        currentPlate = plate - orc;
-                        plates.Dequeue();
-                        plates.Enqueue(currentPlate);
-                        orcs.Pop();
+                        currOrcStrength = orcs.Peek();
                     }
 
-                    else if (plate==orc)
+                    if (currPlateStrength == 0)
                     {
-                        orcs.Pop();
-                        plates.Dequeue();
+                        currPlateStrength = plates.Peek();
                     }
 
-                    else if (orc>plate)
+                    if (currOrcStrength > currPlateStrength)
                     {
+                        currOrcStrength -= currPlateStrength;
                         plates.Dequeue();
-                        currentOrc = orc - plate;
-                        orcs.Pop();
-                        orcs.Push(currentOrc);
+                        currPlateStrength = 0;
                     }
+                    else if (currOrcStrength < currPlateStrength)
+                    {
+                        currPlateStrength -= currOrcStrength;
+                        orcs.Pop();
+                        currOrcStrength = 0;
+                    }
+                    else
+                    {
+                        currPlateStrength = 0;
+                        currOrcStrength = 0;
 
-                 }
+                        plates.Dequeue();
+                        orcs.Pop();
+                    }
+                }
 
-                 if (plates.Count==0)
-                 {
-                     
-                     break;
-                 }
-
-                 
-                
+                if (plates.Count == 0)
+                {
+                    defeat = true;
+                    break;
+                }
             }
 
-            if (plates.Count!=0)
+            List<int> result = new List<int>();
+
+            if (defeat)
             {
-                Console.WriteLine("The people successfully repulsed the orc's attack.");
+                if (currOrcStrength != 0)
+                {
+                    orcs.Pop();
+                    result.Add(currOrcStrength);
+                }
+
+                while (orcs.Count > 0)
+                {
+                    result.Add(orcs.Pop());
+                }
+
+                Console.WriteLine("The orcs successfully destroyed the Gondor's defense.");
+                Console.Write($"Orcs left: ");
+                Console.WriteLine(string.Join(", ", result));
             }
             else
             {
-                Console.WriteLine("The orcs successfully destroyed the Gondor's defense.");
+                if (currPlateStrength != 0)
+                {
+                    plates.Dequeue();
+                    result.Add(currPlateStrength);
+                }
+
+                while (plates.Count > 0)
+                {
+                    result.Add(plates.Dequeue());
+                }
+
+                Console.WriteLine("The people successfully repulsed the orc's attack.");
+                Console.Write($"Plates left: ");
+                Console.WriteLine(string.Join(", ", result));
             }
-
-            if (orcs.Count!=0)
-            {
-                Console.WriteLine($"Orcs left: {string.Join(", ", orcs)}");
-            }
-
-            if (plates.Count!= 0)
-            {
-                Console.WriteLine($"Plates left: {string.Join(", ", plates)}");
-            }
-
-
         }
     }
 }
